@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
 import { filter, map } from 'rxjs/operators';
-import {Destination} from '../interfaces/destination'
-import { Observable } from 'rxjs';
+import {Destination} from '../interfaces/destination';
+import {Billet} from '../interfaces/billet'
+import { from, Observable } from 'rxjs';
 
 
 
@@ -21,5 +22,11 @@ export class ClickTravelService {
     // .pipe(
     //   filter(val => val.isDreamDestination),
     //   );
+  }
+
+  getBillets(destination: string){
+    const query: any = {"where": {"to" : destination}}
+
+    return this.http.get<Billet>(environment.BaseApi+"/tickets?where[to]=", {params: query})
   }
 }

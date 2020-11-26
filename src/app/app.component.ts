@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ClickTravelService } from './services/click-travel.service'
+import { Router } from '@angular/router';
+import {Destination} from './interfaces/destination';
+
+
 
 
 
@@ -14,14 +18,20 @@ export class AppComponent {
   destinations = null
 
   constructor(
-    private clickservice: ClickTravelService
+    private clickservice: ClickTravelService,
+    private router: Router,
   ) { 
-    clickservice.getDestination().subscribe((data) => {this.destinations = data , console.log(data)})
+    clickservice.getDestination()
+    
+    .subscribe((data) => {this.destinations = data})
    
   }
 
   ngOnInit(): void {
   }
-
-
+  
+  navigate(val: string){
+    console.log(val);
+    this.router.navigate(["billets", val]);
+  }
 }
