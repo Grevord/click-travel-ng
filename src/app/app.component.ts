@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { ClickTravelService } from './services/click-travel.service'
+
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Choose your dream destination...';
+  destinations = null
+
+  constructor(
+    private clickservice: ClickTravelService
+  ) { 
+    clickservice.getDestination().subscribe((data) => {this.destinations = data , console.log(data)})
+   
+  }
+
+  ngOnInit(): void {
+  }
+
+
 }
